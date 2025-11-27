@@ -21,16 +21,19 @@ public class UserService implements UserServiceInterface{
 
     @Override
     public UserDto createUser(String name) {
-        UserModel userModel = new UserModel();
-        userModel.setName(name);
-        userModel.setUuid(UUID.randomUUID());
+        UserModel userModel = new UserModel(name);
+
         userRepository.save(userModel);
+
         return new UserDto(userModel.getName(), userModel.getUuid());
     }
 
     @Override
     public UserDto getUserByName(String name) {
         UserModel userModel = userRepository.findByName(name);
+        if(userModel == null){
+            return null;
+        }
         return new UserDto(userModel.getName(), userModel.getUuid());
     }
 

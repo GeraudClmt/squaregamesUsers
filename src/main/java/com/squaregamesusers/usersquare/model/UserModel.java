@@ -14,25 +14,24 @@ public class UserModel {
 
     private String name;
     private UUID uuid;
+
+    public UserModel(String name){
+        this.name = name;
+        this.uuid = UUID.randomUUID();
+    }
+
+    public UserModel(){
+        this.name = null;
+        this.uuid = null;
+    }
+
     public Integer getId() {
         return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
     }
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
     public UUID getUuid() {
         return uuid;
     }
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    
-    
 }
