@@ -9,5 +9,6 @@ public interface  UserServiceInterface {
     UserDto createUser(String name);
     UserDto getUserByName(String name);
     Integer deleteUserByUuid(UUID uuid);
+    UserDto findByUuid(UUID uuid);
 
 }

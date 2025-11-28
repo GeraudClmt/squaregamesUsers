@@ -2,7 +2,6 @@ package com.squaregamesusers.usersquare.controller;
 
 import java.util.UUID;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,7 +42,7 @@ public class UserController {
     })
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody CreateUserParamsRequest request) {
-        if(request.getName() == null){
+        if (request.getName() == null) {
             return ResponseEntity.ok("Erreur: nom vide");
         }
         UserDto userDto = loginService.createUser(request.getName());
@@ -64,15 +63,29 @@ public class UserController {
             }),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
-    @GetMapping("/{name}")
-    public ResponseEntity<?> getUserByName(@PathVariable String name) {
-        UserDto userDto = loginService.getUserByName(name);
-        if (userDto== null) {
-            return ResponseEntity.ok("Erreur, nom introuvable");
+    @GetMapping("/{uuid}")
+    public ResponseEntity<?> getUserByUuid(@PathVariable UUID uuid) {
+        UserDto userDto = loginService.findByUuid(uuid);
+
+        if (userDto == null) {
+            return ResponseEntity.ok("UUID introuvable");
         }
 
         return ResponseEntity.ok(userDto);
     }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<?> getUserByUuid(@PathVariable String name) {
+        UserDto userDto = loginService.getUserByName(name);
+
+        if (userDto == null) {
+            return ResponseEntity.ok("Name introuvable");
+        }
+
+        return ResponseEntity.ok(userDto);
+    }
+
+
 
     @Operation(summary = "Delete a user by UUID", description = "Deletes a user identified by their UUID", tags = {
             "Users", "Deletion" })

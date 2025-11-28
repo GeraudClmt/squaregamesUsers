@@ -44,4 +44,10 @@ public class UserService implements UserServiceInterface{
     
     }
 
+    @Override
+    public UserDto findByUuid(UUID uuid){
+        UserModel userModel = userRepository.findByUuid(uuid);
+        return new UserDto(userModel.getName(), userModel.getUuid());
+    }
+
 }
